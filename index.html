@@ -1,0 +1,2360 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Portfolio Wiam Bourass">
+    <meta name="author" content="Wiam Bourass">
+    <title>Wiam Bourass | Ingénieur IA & Digital</title>
+    
+    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/meyawo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+    /* =========================================
+       1. VARIABLES & CONFIGURATION GLOBALE
+       ========================================= */
+    :root {
+        /* Palette de couleurs */
+        --bg-body: #0f172a;       /* Bleu nuit très sombre */
+        --bg-card: #1e293b;       /* Gris bleu pour les cartes */
+        --primary: #8b5cf6;       /* Violet électrique */
+        --secondary: #06b6d4;     /* Cyan néon */
+        --text-main: #f1f5f9;     /* Blanc cassé */
+        --text-muted: #94a3b8;    /* Gris clair pour le texte secondaire */
+        
+        /* Gradients fréquents */
+        --grad-primary: linear-gradient(135deg, var(--primary), #7c3aed);
+        --grad-text: linear-gradient(to right, var(--primary), #d946ef);
+    }
+
+    /* Reset de base pour éviter les comportements inattendus */
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden; /* Empêche le scroll horizontal causé par les animations */
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth; /* Défilement fluide pour les ancres */
+    }
+
+    /* =========================================
+       2. TYPOGRAPHIE & BODY BACKGROUND
+       ========================================= */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-main);
+        
+        /* Texture de grille subtile en arrière-plan */
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        position: relative; /* Nécessaire pour les effets Aurora */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--text-main);
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        margin-top: 0;
+    }
+
+    p {
+        color: var(--text-muted);
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    /* Utilitaires de texte */
+    .text-gradient {
+        background: var(--grad-text);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .text-cyan-glow {
+        color: var(--secondary);
+        text-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+    }
+
+    /* --- EFFET LUMIÈRE EN BAS (BOTTOM GLOW) --- */
+.bottom-glow {
+    position: absolute;
+    bottom: -50px; /* On le baisse un peu pour que le cœur blanc soit tout en bas */
+    left: 0;
+    width: 100%;
+    height: 100%; /* La hauteur de la lumière */
+    /* Le dégradé : Blanc brillant au centre -> Cyan -> Transparent */
+    background: radial-gradient(ellipse at bottom, 
+                rgba(255, 255, 255, 0.8) 0%, 
+                rgba(6, 182, 212, 0.4) 100%, 
+                transparent 70%);
+    z-index: 1; /* Derrière le texte (qui est z-index 2) */
+    pointer-events: none; /* Important : permet de cliquer au travers */
+    filter: blur(20px); /* Adoucit la lumière */
+    animation: pulseGlow 5s infinite alternate; /* Optionnel : petite respiration */
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.8; transform: scaleY(1); }
+    100% { opacity: 1; transform: scaleY(1.1); }
+}
+
+    /* =========================================
+       3. BACKGROUND ANIMÉ (AURORA EFFECT)
+       ========================================= */
+    /* Crée les lueurs colorées en arrière-plan */
+    .aesthetic-bg-aurora::before,
+    .aesthetic-bg-aurora::after {
+        content: '';
+        position: fixed; /* Fixed pour que ça suive le scroll */
+        filter: blur(120px);
+        z-index: -1;
+        opacity: 0.5;
+        animation: auroraMove 20s ease-in-out infinite alternate;
+        pointer-events: none;
+    }
+
+    /* Bulle Violette */
+    .aesthetic-bg-aurora::before {
+        width: 50vw; height: 50vh;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, rgba(0,0,0,0) 70%);
+        top: -10%; left: -10%;
+    }
+
+    /* Bulle Cyan */
+    .aesthetic-bg-aurora::after {
+        width: 60vw; height: 60vh;
+        background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, rgba(0,0,0,0) 70%);
+        bottom: -10%; right: -10%;
+        animation-delay: -5s;
+        animation-duration: 25s;
+    }
+
+    @keyframes auroraMove {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(10%, 20%) scale(1.1); }
+        100% { transform: translate(-10%, 10%) scale(0.9); }
+    }
+
+    /* =========================================
+       4. NAVBAR STYLISÉE
+       ========================================= */
+    .custom-navbar {
+        background: transparent;
+        position: fixed;
+        width: 100%;
+        height: 8%; /* Laisser la hauteur s'adapter */
+        min-height: 80px;
+        z-index: 1000;
+        transition: 0.4s ease;
+        padding: 20px 0;
+    }
+
+    .custom-navbar.affix {
+        background: rgba(15, 23, 42, 0.95); /* Fond semi-transparent au scroll */
+        padding: 10px 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px); /* Effet de flou derrière la navbar */
+    }
+
+    .custom-navbar .logo img {
+        max-height: 50px; /* Taille contrôlée du logo image */
+        width: auto;
+    }
+
+    /* Logo Textuel (Code Style) */
+    .logo-text {
+        font-family: 'Fira Code', monospace;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: #f1f5f9;
+        letter-spacing: -1px;
+        display: flex; align-items: center;
+        text-decoration: none;
+    }
+    .logo-text .bracket { color: var(--secondary); margin: 0 2px; text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+    .logo-text .dot { color: var(--primary); font-size: 2rem; line-height: 0; margin: 0 2px 10px 2px; }
+    .logo-text:hover .bracket { color: var(--primary); transition: 0.3s; }
+
+    .nav-link {
+        color: rgba(255,255,255,0.8) !important;
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-left: 15px;
+        transition: all 0.3s ease;
+    }
+    .nav-link:hover {
+        color: var(--secondary) !important;
+        text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+        transform: translateY(-2px);
+    }
+
+    /* =========================================
+       5. HERO SECTION (HEADER)
+       ========================================= */
+    .header {
+        position: relative;
+        height: 100vh; /* Prend tout l'écran */
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        /* Dégradé radial central subtil */
+        background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 80%);
+        margin-bottom: 60px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+
+    .header-content {
+        z-index: 2;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        padding: 0 20px;
+    }
+
+    .header-subtitle {
+        color: var(--secondary);
+        font-family: 'Fira Code', monospace;
+        font-size: 1.1rem;
+        letter-spacing: 3px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        display: block;
+    }
+
+    .header-title {
+        font-size: 3.5rem;
+        line-height: 1.1;
+        margin-bottom: 25px;
+        filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.3));
+    }
+
+    .header-desc {
+        max-width: 600px;
+        margin: 0 auto 45px auto;
+        font-size: 1.15rem;
+        opacity: 0.9;
+        font-weight: 300;
+    }
+
+    /* Animation du logo en arrière-plan */
+    .bg-logo-moving {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70%;
+        max-width: 800px;
+        opacity: 0.05;
+        z-index: 0;
+        pointer-events: none;
+        animation: bg-breath 12s ease-in-out infinite alternate;
+    }
+    @keyframes bg-breath {
+        0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        100% { transform: translate(-50%, -52%) scale(1.05) rotate(2deg); }
+    }
+
+    /* Glow effect en bas du header */
+/* --- EFFET LUMIÈRE EN BAS (STYLE HORIZON GLOW) --- */
+.bottom-glow {
+    position: absolute;
+    bottom: 0; /* Collé tout en bas */
+    left: 0;
+    width: 100%;
+    height: 300px; /* Hauteur de diffusion de la lumière */
+    
+    /* Le secret : un cœur blanc pur (100%), entouré de Cyan fort (60%), puis transparent */
+    background: radial-gradient(
+        ellipse at center bottom, 
+        rgba(255, 255, 255, 1) 0%,    /* Cœur Blanc pur et intense */
+        rgba(6, 182, 212, 0.8) 20%,   /* Cyan très brillant autour */
+        rgba(6, 182, 212, 0.2) 50%,   /* Cyan diffus */
+        transparent 70%
+    );
+    
+    z-index: 3; /* Au-dessus des éléments de fond mais attention à ne pas cacher les liens */
+    pointer-events: none; /* Permet de cliquer à travers la lumière */
+    filter: blur(15px); /* Un léger flou pour adoucir les bords sans perdre l'intensité */
+    mix-blend-mode: screen; /* Fusionne la lumière avec le fond pour un effet "Glow" réaliste */
+}
+    @keyframes pulseGlow {
+        0% { opacity: 0.6; transform: scaleY(1); }
+        100% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* =========================================
+       6. BOUTONS & INTERACTIONS
+       ========================================= */
+    .btn-glow {
+        background: var(--grad-primary);
+        color: white;
+        padding: 14px 40px;
+        border-radius: 50px;
+        border: none;
+        font-weight: 600;
+        box-shadow: 0 10px 30px -5px rgba(139, 92, 246, 0.6);
+        transition: all 0.3s ease;
+        margin: 10px;
+        display: inline-block;
+        text-decoration: none;
+    }
+    .btn-glow:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -5px rgba(139, 92, 246, 0.8);
+        color: white;
+    }
+
+    .btn-outline-custom {
+        background: rgba(255,255,255,0.03);
+        border: 2px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 12px 40px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s;
+        margin: 10px;
+        display: inline-block;
+        text-decoration: none;
+    }
+    .btn-outline-custom:hover {
+        border-color: white;
+        background: rgba(255,255,255,0.1);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    /* Boutons Soft Skills */
+    .skill-btn {
+        display: inline-flex; align-items: center;
+        background: rgba(255,255,255,0.05);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        margin: 5px;
+        font-size: 0.9rem;
+        border: 1px solid rgba(255,255,255,0.1);
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+    .skill-btn i { margin-right: 8px; }
+    .skill-btn:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1); }
+    .skill-btn.active {
+        background: var(--secondary);
+        border-color: var(--secondary);
+        box-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+    }
+
+    /* Icones sociales */
+    .header-social-bottom {
+        position: absolute; bottom: 30px; width: 100%; text-align: center; z-index: 10;
+    }
+    .header-social-bottom a {
+        display: inline-block; margin: 0 20px; color: var(--text-muted); font-size: 1.4rem; transition: 0.3s;
+    }
+    .header-social-bottom a:hover {
+        color: var(--secondary); transform: scale(1.2); text-shadow: 0 0 15px var(--secondary);
+    }
+
+    /* =========================================
+   STYLE COMPÉTENCES (SKILLS)
+   ========================================= */
+
+/* Structure de la carte compétence */
+.skill-card {
+    padding: 25px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* On réutilise le style de base .tech-card mais on peut l'affiner ici */
+    background: #1E222B;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* En-tête de la carte (Icone + Titre) */
+.card-header-skill {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-header-skill h5 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.card-header-skill i {
+    font-size: 1.5rem;
+    margin-right: 15px;
+    /* Fond de l'icône sombre pour faire ressortir le gradient */
+    background-color: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-radius: 10px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Liste des tags */
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* --- DÉGRADÉS DE COULEURS POUR LES ICÔNES --- */
+/* Pour appliquer un dégradé sur une icône (font), on utilise background-clip: text */
+
+.icon-gradient-purple {
+    background-image: linear-gradient(45deg, #a855f7, #ec4899);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hover-glow-purple:hover { border-color: #a855f7; box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15); }
+
+.icon-gradient-blue {
+    background-image: linear-gradient(45deg, #3b82f6, #06b6d4);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hover-glow-blue:hover { border-color: #3b82f6; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15); }
+
+.icon-gradient-green {
+    background-image: linear-gradient(45deg, #10b981, #34d399);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hover-glow-green:hover { border-color: #10b981; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15); }
+
+.icon-gradient-orange {
+    background-image: linear-gradient(45deg, #f59e0b, #ef4444);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hover-glow-orange:hover { border-color: #f59e0b; box-shadow: 0 10px 30px rgba(245, 158, 11, 0.15); }
+
+.icon-gradient-red {
+    background-image: linear-gradient(45deg, #ef4444, #be185d);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hover-glow-red:hover { border-color: #ef4444; box-shadow: 0 10px 30px rgba(239, 68, 68, 0.15); }
+
+.icon-gradient-cyan {
+    background-image: linear-gradient(45deg, #06b6d4, #3b82f6);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hover-glow-cyan:hover { border-color: #06b6d4; box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15); }
+
+.icon-gradient-indigo {
+    background-image: linear-gradient(45deg, #3b82f6, #6366f1);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hover-glow-indigo:hover { border-color: #6366f1; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15); }
+
+.icon-gradient-lime {
+    background-image: linear-gradient(45deg, #84cc16, #10b981);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hover-glow-lime:hover { border-color: #84cc16; box-shadow: 0 10px 30px rgba(132, 204, 22, 0.15); }
+
+
+/* Base pour les couvertures CSS */
+.css-cover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.6s ease;
+}
+
+/* Effet Zoom au survol (comme pour les images) */
+.memory-card:hover .css-cover {
+    transform: scale(1.1);
+}
+
+/* --- OPTION 1 : UI/UX (Digital Grid & Glow) --- */
+/* Un fond technologique bleu nuit avec une grille et une lueur violette */
+.cover-ui {
+    background-color: #0F1115;
+    background-image: 
+        /* Lueur radiale */
+        radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+        /* Grille fine */
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+}
+
+/* --- OPTION 2 : Print (Geometric Layers) --- */
+/* Des formes géométriques tranchées (Cyan & Rose) rappelant le papier découpé */
+.cover-print {
+    background-color: #1e293b;
+    background: 
+        conic-gradient(from 135deg at 80% 50%, #06b6d4 0deg, transparent 60deg),
+        conic-gradient(from 45deg at 20% 80%, #f472b6 0deg, transparent 80deg),
+        linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    opacity: 0.8;
+}
+
+/* --- OPTION 3 : Branding (The Core) --- */
+/* Une orbe centrale puissante (Orange/Violet) pour symboliser l'identité */
+.cover-branding {
+    background-color: #0F1115;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.3) 0%, rgba(139, 92, 246, 0.1) 60%, transparent 80%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 10px);
+}
+
+
+    /* =========================================
+       7. SECTION PORTFOLIO (CARDS DESIGN)
+       ========================================= */
+    .section-title { font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; }
+    
+    /* Fond de carte unifié et moderne */
+    .project-card, .tech-card {
+        background-color: var(--bg-card); /* #1E222B */
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        position: relative;
+        display: flex; flex-direction: column;
+        height: 100%;
+    }
+
+    .project-card:hover, .tech-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2); /* Ombre violette */
+        border-color: rgba(108, 99, 255, 0.3);
+    }
+
+    /* Zone Image de la carte */
+    .card-img-wrapper {
+        position: relative;
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+    }
+    .card-img-wrapper img {
+        width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+    }
+    .project-card:hover .card-img-wrapper img { transform: scale(1.1); }
+
+    /* Overlay "Voir" au survol */
+    .card-overlay {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(108, 99, 255, 0.6);
+        display: flex; justify-content: center; align-items: center;
+        opacity: 0; transition: opacity 0.3s ease;
+    }
+    .card-overlay i { color: white; font-size: 2rem; transform: scale(0); transition: transform 0.3s ease; }
+    .project-card:hover .card-overlay { opacity: 1; }
+    .project-card:hover .card-overlay i { transform: scale(1); }
+
+    /* Corps de la carte */
+    .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .card-title { color: #fff; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; }
+
+    /* Badges de technologies */
+    .tags-container { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tech-badge, .skill-tag {
+        background: rgba(108, 99, 255, 0.1);
+        color: #aeb4c8;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        border: 1px solid rgba(108, 99, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+    .project-card:hover .tech-badge { background: rgba(108, 99, 255, 0.9); color: white; border-color: transparent; }
+
+    /* =========================================
+       8. LEADERSHIP & TIMELINE
+       ========================================= */
+    /* Cartes Associatives */
+    .assoc-card {
+        background: rgba(30, 41, 59, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 30px;
+        height: 100%;
+        transition: all 0.4s ease;
+        position: relative; overflow: hidden;
+    }
+    .assoc-card::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        opacity: 0; transition: 0.3s;
+    }
+    .assoc-card:hover {
+        transform: translateY(-10px);
+        background: rgba(30, 41, 59, 0.7);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    .assoc-card:hover::before { opacity: 1; }
+    .assoc-role { color: var(--secondary); font-family: 'Fira Code', monospace; font-weight: 700; display: block; margin-bottom: 15px; }
+    
+    .assoc-list { list-style: none; padding: 0; }
+    .assoc-list li { position: relative; padding-left: 20px; margin-bottom: 8px; font-size: 0.9rem; }
+    .assoc-list li::before { content: '▹'; position: absolute; left: 0; color: var(--primary); }
+
+    /* Timeline Verticale */
+    .timeline-container { position: relative; padding: 20px 0; }
+    .timeline-line {
+        position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+        background: rgba(139, 92, 246, 0.2); transform: translateX(-50%);
+    }
+    .timeline-row { display: flex; justify-content: center; align-items: center; margin-bottom: 40px; position: relative; }
+    .timeline-content {
+        width: 45%; background: rgba(255, 255, 255, 0.02); padding: 25px;
+        border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.05); transition: 0.3s;
+    }
+    .timeline-content:hover { border-color: var(--secondary); box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); transform: scale(1.02); }
+    .timeline-dot {
+        width: 16px; height: 16px; background: var(--bg-body); border: 3px solid var(--secondary);
+        border-radius: 50%; position: absolute; left: 50%; transform: translateX(-50%); z-index: 2;
+        box-shadow: 0 0 10px var(--secondary);
+    }
+    
+    /* Alternance Gauche/Droite Timeline */
+    .timeline-row:nth-child(odd) { flex-direction: row-reverse; }
+    .timeline-row:nth-child(odd) .timeline-content { text-align: left; }
+    .timeline-row:nth-child(even) .timeline-content { text-align: right; }
+
+    /* Espace entre les tags de compétences */
+.skill-tag {
+    margin: 5px; /* Ajoute 5px d'espace tout autour de chaque tag */
+    display: inline-block; /* Assure que le margin fonctionne bien */
+}
+
+/* Si vous voulez un espace spécifique entre les deux gros blocs (Soft Skills / Tech & Com) */
+.col-md-6 {
+    padding: 15px; /* Ajoute de l'espace intérieur aux colonnes */
+}
+
+
+/* --- THÈMES COULEURS PROJETS --- */
+
+/* Base pour tous les thèmes : transition douce */
+.modal-content {
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+/* 1. THÈME BLEU (Télétravail) */
+.theme-blue {
+    border-color: #3b82f6; /* Bleu */
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); /* Lueur bleue */
+}
+.theme-blue .modal-header { border-bottom: 1px solid rgba(59, 130, 246, 0.3); }
+.theme-blue .badge { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
+
+/* 2. THÈME ROUGE/GRIS (Keycloak) */
+.theme-red {
+    border-color: #ef4444; /* Rouge */
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
+}
+.theme-red .modal-header { border-bottom: 1px solid rgba(239, 68, 68, 0.3); }
+.theme-red .badge { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+
+/* 3. THÈME INDIGO (Rapports) */
+.theme-indigo {
+    border-color: #6366f1; /* Indigo */
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+}
+.theme-indigo .modal-header { border-bottom: 1px solid rgba(99, 102, 241, 0.3); }
+.theme-indigo .badge { background: rgba(99, 102, 241, 0.2); color: #c7d2fe; }
+
+/* 4. THÈME ORANGE (Bus) */
+.theme-orange {
+    border-color: #f97316; /* Orange */
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.25);
+}
+.theme-orange .modal-header { border-bottom: 1px solid rgba(249, 115, 22, 0.3); }
+.theme-orange .badge { background: rgba(249, 115, 22, 0.2); color: #fdba74; }
+
+/* 5. THÈME TEAL/VERT (Hôtel) */
+.theme-teal {
+    border-color: #14b8a6; /* Teal */
+    box-shadow: 0 0 30px rgba(20, 184, 166, 0.25);
+}
+.theme-teal .modal-header { border-bottom: 1px solid rgba(20, 184, 166, 0.3); }
+.theme-teal .badge { background: rgba(20, 184, 166, 0.2); color: #99f6e4; }
+
+/* 6. THÈME VIOLET/ÉLECTRIQUE (EcoGrid) */
+.theme-purple {
+    border-color: #d946ef; /* Fuchsia/Violet */
+    box-shadow: 0 0 30px rgba(217, 70, 239, 0.25);
+}
+.theme-purple .modal-header { border-bottom: 1px solid rgba(217, 70, 239, 0.3); }
+.theme-purple .badge { background: rgba(217, 70, 239, 0.2); color: #f5d0fe; }
+
+    /* =========================================
+       9. MODAL & SWIPER (CAROUSEL 3D)
+       ========================================= */
+    .modal-content { background-color: var(--bg-card); color: var(--text-main); border: 1px solid rgba(255,255,255,0.1); }
+    .modal-dark { background-color: #1a1a2e; color: #fff; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
+    .close { color: white; opacity: 1; text-shadow: none; }
+
+    /* Swiper Container */
+    .swiper.myCoverflowSwiper { width: 100%; padding-top: 50px; padding-bottom: 50px; }
+    
+    /* Carte Swiper individuelle */
+    .myCoverflowSwiper .swiper-slide {
+        width: 300px; height: 450px;
+        border-radius: 20px; overflow: hidden;
+        background-color: #0F1115;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 30px -10px rgba(108, 99, 255, 0.5);
+    }
+    .myCoverflowSwiper .swiper-slide-active:hover {
+        transform: translateY(-10px) scale(1.02) !important;
+        box-shadow: 0 20px 40px -10px rgba(108, 99, 255, 0.8);
+    }
+
+    /* Images Magiques (Flou + Net) */
+    .image-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
+    .blur-background {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background-size: cover; background-position: center;
+        filter: blur(30px) brightness(0.6); transform: scale(1.2); z-index: 1;
+    }
+    .main-image {
+        position: relative; z-index: 2; display: block; width: 100%; height: 100%;
+        object-fit: contain; object-position: center;
+        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+    }
+
+    /* Texte sur le slide */
+    .slide-content {
+        position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 20px 20px; z-index: 3;
+        background: linear-gradient(to top, rgba(15, 17, 21, 0.95) 20%, transparent 100%);
+        text-align: left;
+    }
+    .slide-content h3 { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0; }
+    .slide-content p { margin: 5px 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+
+    /* Pagination Swiper */
+    .swiper-pagination-bullet { background: rgba(255,255,255,0.5); }
+    .swiper-pagination-bullet-active { background: #6C63FF; }
+
+
+    /* =========================================
+   11. STYLE GALERIE (MEMORY WALL) - À AJOUTER
+   ========================================= */
+.memory-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 300px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.memory-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.memory-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 25px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.memory-content {
+    transform: translateY(10px);
+    transition: transform 0.4s ease;
+}
+
+.memory-content h5 {
+    color: white;
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 1.3rem;
+}
+
+.memory-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    opacity: 0;
+    max-height: 0;
+    transition: all 0.4s ease;
+}
+
+/* Effets au survol */
+.memory-card:hover img { transform: scale(1.1); }
+.memory-card:hover { border-color: var(--secondary); box-shadow: 0 15px 40px rgba(6, 182, 212, 0.15); }
+.memory-card:hover .memory-content { transform: translateY(0); }
+.memory-card:hover .memory-content p { opacity: 1; max-height: 50px; margin-top: 5px; }
+
+/* Badges */
+.memory-badge {
+    display: inline-block; padding: 5px 12px; border-radius: 50px;
+    font-size: 0.75rem; font-weight: 600; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 0.5px; backdrop-filter: blur(5px);
+}
+.badge-purple { background: rgba(139, 92, 246, 0.2); color: #d8b4fe; border: 1px solid rgba(139, 92, 246, 0.4); }
+.badge-blue { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.4); }
+.badge-green { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+.badge-orange { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+/* --- SECTION CONTACT MODERNISÉE --- */
+
+/* 1. Les infos à gauche */
+.icon-box {
+    width: 50px; height: 50px;
+    background: rgba(139, 92, 246, 0.1); /* Fond violet très léger */
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary); font-size: 1.2rem;
+    transition: 0.3s;
+}
+.contact-info-item:hover .icon-box {
+    background: var(--primary); color: white;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+    transform: rotate(10deg);
+}
+
+/* --- FORMULAIRE COMPACT AVEC OMBRE LATÉRALE --- */
+
+.contact-form-card {
+    background: rgba(30, 41, 59, 0.7); /* Fond un peu plus sombre */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    
+    /* 1. DIMINUER LA HAUTEUR */
+    padding: 30px !important; /* On réduit le padding (avant c'était p-4 ou p-5) */
+    
+    /* 2. OMBRE SUR LES CÔTÉS (Gauche et Droite) */
+    /* format: décalage-X décalage-Y flou couleur */
+    box-shadow: 
+        15px 0 40px rgba(139, 92, 246, 0.4),  /* Ombre Droite */
+        -15px 0 40px rgba(139, 92, 246, 0.4), /* Ombre Gauche */
+        0 10px 30px rgba(0,0,0,0.3);     /* Ombre Bas classique */
+}
+
+/* Réduire l'espace entre les champs pour gagner encore de la hauteur */
+.contact-form-card .form-group {
+    margin-bottom: 15px !important; /* Réduit de mb-4 (24px) à 15px */
+}
+
+.contact-form-card h4 {
+    margin-bottom: 20px !important; /* Réduit l'espace sous le titre */
+}
+
+.contact-input {
+    padding: 10px 15px; /* Champs un peu moins hauts */
+    font-size: 0.95rem;
+}
+
+/* Quand on clique dans le champ */
+.contact-input:focus {
+    background: rgba(15, 23, 42, 0.9) !important;
+    border-color: var(--primary) !important; /* Bordure violette */
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2) !important;
+}
+
+/* Labels */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .memory-card { height: 250px; }
+    .memory-content p { opacity: 1; max-height: 50px; }
+}
+
+.back-to-top {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--primary); color: white;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 999; transition: 0.3s;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+.back-to-top:hover { transform: translateY(-5px); color: white; }
+
+    /* =========================================
+       10. RESPONSIVE (MOBILE)
+       ========================================= */
+    @media (max-width: 768px) {
+        .header-title { font-size: 2.5rem; }
+        .header-desc { font-size: 1rem; padding: 0 10px; }
+        
+        /* Timeline Mobile */
+        .timeline-line { left: 20px; }
+        .timeline-row, .timeline-row:nth-child(odd) { flex-direction: row; justify-content: flex-start; }
+        .timeline-content { width: 85%; margin-left: 50px; text-align: left !important; }
+        .timeline-dot { left: 20px; }
+        
+        /* Swiper Mobile */
+        .myCoverflowSwiper .swiper-slide { width: 240px; height: 360px; }
+    }
+</style>
+
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+<!--header-->
+    <nav class="custom-navbar" data-spy="affix" data-offset-top="20">
+        <div class="container">
+            <a class="logo" href="#">
+                <a class="logo" href="#">
+                    <div class="logo-text">
+                    <span class="bracket">&lt;</span>
+                    W
+                    <span class="dot">.</span>
+                    B
+                    <span class="bracket">/&gt;</span>
+                    </div>
+                </a>
+            </a>
+            <ul class="nav">
+                <li class="item"><a class="link" href="#home">Accueil</a></li>
+                <li class="item"><a class="link" href="#about">À propos</a></li>
+                <li class="item"><a class="link" href="#competences">Compétences</a></li>
+                <li class="item"><a class="link" href="#portfolio">Projets</a></li>
+                <li class="item"><a class="link" href="#leadership">Activités</a></li>
+                <li class="item"><a class="link" href="#contact">Contact</a></li>
+            </ul>
+            <a href="javascript:void(0)" id="nav-toggle" class="hamburger hamburger--elastic">
+                <div class="hamburger-box"><div class="hamburger-inner"></div></div>
+            </a>
+        </div>
+    </nav>
+
+<!--acueil-->
+    <header id="home" class="header">
+        <img src="image_0.png" class="bg-logo-moving" alt="">
+        
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+
+        <div class="header-content">
+            <h3 class="mb-4 text-white font-weight-light">BONJOUR, JE SUIS <span class="text-cyan-glow" id="typed-text"></span></h3>
+            
+            <h1 class="header-title">
+                <span class="text-cyan-glow">Weame</span> <span class="text-gradient">BOURASS</span>
+            </h1>
+            
+            <h3 class="mb-4 text-white font-weight-light">Élève Ingénieur en Génie Informatique</h3>
+            
+            <p class="header-desc">
+                Je crée des solutions digitales intelligentes et j’apporte de l’impact à travers l’innovation, la communication et le leadership.
+            </p>
+            
+            <div class="mt-5">
+                <a href="#portfolio" class="btn btn-glow">Voir mes projets</a>
+                <a href="cv_weame_bourass.pdf" class="btn btn-outline-custom">Télécharger CV</a>
+            </div>
+        </div>
+
+        <div class="header-social-bottom">
+            <a href="https://www.instagram.com/wiambourass?igsh=MW1rbm9hcnhwcjhkbQ%3D%3D&utm_source=qr" target="_blank"><i class="ti-instagram"></i></a>
+            <a href="https://github.com/BOURASSWeame" target="_blank"><i class="ti-github"></i></a>
+            <a href="https://www.linkedin.com/in/weame-bourass" target="_blank"><i class="ti-linkedin"></i></a>
+        </div>
+        <div class="bottom-glow"></div>
+    </header>
+
+<!--Qui-->
+    <section class="section pt-5" id="about">
+<div class="container">
+    <div class="row align-items-stretch">
+        
+        <div class="col-md-5 mb-4 mb-md-0 d-flex flex-column justify-content-center position-relative">
+            
+            <div class="h-100 w-100 position-relative d-flex align-items-center justify-content-center">
+                
+                <div style="position: absolute; 
+                            inset: 0; 
+                            width: 100%; 
+                            height: 58.5%; 
+                            margin-top: 18%;
+                            border: 2px solid var(--primary); 
+                            border-radius: 15px; 
+                            transform: translate(15px, 15px); /* Le décalage "move" */
+                            z-index: 0; 
+                            opacity: 0.6;
+                            box-shadow: 0 0 20px rgba(139,92,246,0.3);">
+                </div>
+
+                <img src="assets/imgs/image.png" 
+                     class="img-fluid d-none d-md-block" 
+                     style="position: relative; 
+                            z-index: 1; 
+                            max-height: 400px; /* Limite la taille pour ne pas être géante */
+                            object-fit: contain;
+                            margin-left: 7.5%;
+                            margin-bottom: 15%;
+                            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); 
+                            border-radius: 50px;" 
+                     alt="Wiam Bourass">
+            </div>
+        </div>
+
+        <div class="col-md-7 pl-md-5 d-flex flex-column">
+            <p class="section-subtitle">Qui suis-je ?</p>
+            <h2 class="mb-4">À Propos de <span class="text-gradient">Moi</span></h2>
+            
+            <div class="bg-card p-4 rounded h-100 d-flex flex-column justify-content-center" 
+                 style="background: rgba(255,255,255,0.02); border-left: 3px solid var(--secondary); box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <p class="text-justify mb-3">
+                    Je suis <strong>Weame Bourass</strong>, étudiante en Génie Informatique et passionnée par la création de solutions digitales modernes. Mon parcours m’a permis d’explorer différentes dimensions de l’informatique : développement web, bases de données, systèmes, et intelligence artificielle.
+                <br>
+                    J’aime transformer une idée en un projet concret, fonctionnel et esthétique. Mon parcours m’a permis d’acquérir une double compétence : technique (React, .NET, Python, IA) et communicationnelle grâce à mes rôles dans différentes associations et compétitions nationales.
+                <br><br>
+                    Mon objectif c'est de Construire une carrière dans l’IA et le développement, et participer à des projets qui ont un impact réel.
+                </p>
+            </div>
+
+            <h6 class="mt-4 mb-3 text-white">Soft Skills</h6>
+            <div class="d-flex flex-wrap">
+                <div class="skill-btn" onclick="toggleSkill(this)"><i class="ti-comments"></i> Communication</div>
+                <div class="skill-btn" onclick="toggleSkill(this)"><i class="ti-rocket"></i> Leadership</div>
+                <div class="skill-btn" onclick="toggleSkill(this)"><i class="ti-timer"></i> Gestion du temps</div>
+                <div class="skill-btn" onclick="toggleSkill(this)"><i class="ti-agenda"></i> Organisation</div>
+                <div class="skill-btn" onclick="toggleSkill(this)"><i class="ti-microphone"></i> Public Speaking</div>
+                <div class="skill-btn" onclick="toggleSkill(this)"><i class="ti-light-bulb"></i> Résolution des problèmes</div>
+            </div>
+        </div>
+    </div>
+</div>
+    </section>
+
+<!--Compétence-->    
+<section class="section bg-dark-custom" id="competences">
+    <div class="container">
+        <div class="mb-5 text-center">
+            <h2 class="section-title text-white font-weight-bold">
+                Mes <span style="color: #6C63FF;">Compétences</span>
+            </h2>
+            <p class="text-muted">Technologies & Outils maîtrisés</p>
+        </div>
+
+        <div class="row">
+            
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="tech-card skill-card hover-glow-purple">
+                    <div class="card-header-skill">
+                        <i class="ti-write icon-gradient-purple"></i>
+                        <h5>Langages</h5>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">C / C#</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="tech-card skill-card hover-glow-blue">
+                    <div class="card-header-skill">
+                        <i class="ti-layout icon-gradient-blue"></i>
+                        <h5>Front-End</h5>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Vue.js</span>
+                        <span class="skill-tag">Astro</span>
+                        <span class="skill-tag">TailwindCSS</span>
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">Dart</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="tech-card skill-card hover-glow-green">
+                    <div class="card-header-skill">
+                        <i class="ti-server icon-gradient-green"></i>
+                        <h5>Back-End</h5>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">ASP.NET Core</span>
+                        <span class="skill-tag">Strapi</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="tech-card skill-card hover-glow-orange">
+                    <div class="card-header-skill">
+                        <i class="ti-stats-up icon-gradient-orange"></i>
+                        <h5>IA & Data</h5>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">Machine Learning</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="tech-card skill-card hover-glow-red">
+                    <div class="card-header-skill">
+                        <i class="ti-harddrives icon-gradient-red"></i>
+                        <h5>Database</h5>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Oracle</span>
+                        <span class="skill-tag">PL/SQL</span>
+                        <span class="skill-tag">SqLite</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="tech-card skill-card hover-glow-cyan">
+                    <div class="card-header-skill">
+                        <i class="ti-clipboard icon-gradient-cyan"></i>
+                        <h5>Gestion</h5>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">UML</span>
+                        <span class="skill-tag">Merise</span>
+                        <span class="skill-tag">Agile</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="tech-card skill-card hover-glow-indigo">
+                    <div class="card-header-skill">
+                        <i class="ti-signal icon-gradient-indigo"></i>
+                        <h5>Réseaux</h5>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Réseaux info</span>
+                        <span class="skill-tag">Sécurité</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="tech-card skill-card hover-glow-lime">
+                    <div class="card-header-skill">
+                        <i class="ti-settings icon-gradient-lime"></i>
+                        <h5>Outils</h5>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Git/GitHub</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Canva</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section> 
+
+<section class="section bg-dark-custom" id="portfolio">
+    <div class="container">
+        <div class="mb-5 text-center">
+            <h2 class="section-title text-white font-weight-bold">
+                Mes <span style="color: #6C63FF;">Projets</span>
+            </h2>
+            <p class="text-muted">Découvrez mes dernières réalisations</p>
+        </div>
+
+        <div class="row">
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="project-card h-100" data-toggle="modal" data-target="#modalProjet1">
+                    <div class="card-img-wrapper">
+                        <img src="assets/imgs/tele1.png" alt="Télétravail">
+                        <div class="card-overlay">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Plateforme Télétravail</h5>
+                        <div class="tags-container">
+                            <span class="tech-badge">Astro</span>
+                            <span class="tech-badge">Strapi</span>
+                            <span class="tech-badge">Tailwind</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="project-card h-100" data-toggle="modal" data-target="#modalProjet2">
+                    <div class="card-img-wrapper">
+                        <img src="assets/imgs/R.png" alt="Keycloak" style="object-fit: contain; padding: 20px; background: #252830;">
+                        <div class="card-overlay">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Migration Keycloak</h5>
+                        <div class="tags-container">
+                            <span class="tech-badge">Java</span>
+                            <span class="tech-badge">Sécurité</span>
+                            <span class="tech-badge">IAM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="project-card h-100" data-toggle="modal" data-target="#modalProjet3">
+                    <div class="card-img-wrapper">
+                        <img src="assets/imgs/rapport.png" alt="Rapports">
+                        <div class="card-overlay">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Gestion Rapports</h5>
+                        <div class="tags-container">
+                            <span class="tech-badge">ASP.NET Core</span>
+                            <span class="tech-badge">SQL Server</span>
+                            <span class="tech-badge">MVC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="project-card h-100" data-toggle="modal" data-target="#modalProjet4">
+                    <div class="card-img-wrapper">
+                        <img src="assets/imgs/transport(1)(1).png" alt="Transport App">
+                        <div class="card-overlay">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">TransportApp Mobile</h5>
+                        <div class="tags-container">
+                            <span class="tech-badge">Flutter</span>
+                            <span class="tech-badge">Dart</span>
+                            <span class="tech-badge">Google Maps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="project-card h-100" data-toggle="modal" data-target="#modalProjet5">
+                    <div class="card-img-wrapper">
+                        <img src="assets/imgs/hotel.png" alt="Hôtel">
+                        <div class="card-overlay">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Réservation Hôtel</h5>
+                        <div class="tags-container">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">Fullstack</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="project-card h-100" data-toggle="modal" data-target="#modalProjet6">
+                    <div class="card-img-wrapper">
+                        <img src="assets/imgs/ecogrid.jpeg" alt="EcoGrid">
+                        <div class="card-overlay">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">EcoGrid IA & IoT</h5>
+                        <div class="tags-container">
+                            <span class="tech-badge">Python Flask</span>
+                            <span class="tech-badge">Machine Learning</span>
+                            <span class="tech-badge">Flutter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="section bg-card" id="leadership" style="background: rgba(30, 41, 59, 0.4); overflow: hidden;">
+    <div class="container">
+        
+        <div class="text-center mb-6">
+            <p class="section-subtitle">Leadership & Engagements</p>
+            <h2 class="section-title mb-4">Engagement & <span class="text-gradient">Impact</span></h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <p class="lead text-muted">
+                        En parallèle de mon parcours académique, je suis très active dans plusieurs initiatives para-universitaires. J’occupe des rôles de leadership, de communication et d’animation d’événements, ce qui m’a permis de développer des compétences humaines essentielles : 
+                        <span class="text-white font-weight-bold">public speaking, gestion d’équipe, créativité et coordination d’événements.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="mb-4 mt-5 text-white pl-3" style="border-left: 4px solid var(--primary);">Expériences Associatives & Responsabilités</h4>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="assoc-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="ti-announcement" style="font-size: 2rem; color: #f472b6; margin-right: 15px;"></i>
+                        <h5 class="text-white mb-0">UMC4 – EST Salé</h5>
+                    </div>
+                    <span class="assoc-role">Responsable Communication</span>
+                    <ul class="assoc-list mt-3">
+                        <li>Gestion de la stratégie de communication du club</li>
+                        <li>Création de contenu, gestion réseaux sociaux</li>
+                        <li>Organisation et couverture médiatique d’événements</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="assoc-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="ti-world" style="font-size: 2rem; color: #fbbf24; margin-right: 15px;"></i>
+                        <h5 class="text-white mb-0">Enactus ENIAD</h5>
+                    </div>
+                    <span class="assoc-role">Resp. Communication Externe</span>
+                    <ul class="assoc-list mt-3">
+                        <li>Relation avec les partenaires externes</li>
+                        <li>Négociation et communication institutionnelle</li>
+                        <li>Conception visuelle & gestion de la visibilité des projets</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="assoc-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="ti-cup" style="font-size: 2rem; color: #34d399; margin-right: 15px;"></i>
+                        <h5 class="text-white mb-0">Injaz Al Maghrib '24</h5>
+                    </div>
+                    <span class="assoc-role">Team Leader Équipe Projet</span>
+                    <ul class="assoc-list mt-3">
+                        <li>Direction du projet & Gestion de l’équipe</li>
+                        <li>Coordination du prototypage et pitch</li>
+                        <li>Présentation devant jury (Compétition régionale/nationale)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="mb-5 mt-5 text-white pl-3" style="border-left: 4px solid var(--secondary);">Public Speaking & Animations</h4>
+        
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <div class="timeline-row">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="badge badge-primary mb-2">Conférence</span>
+                    <h5 class="text-white">“Mettre l’impossible possible”</h5>
+                    <p class="small text-muted mb-0">
+                        Présentation devant public sur le dépassement de soi et l'innovation. Motivation & Storytelling.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="badge badge-warning mb-2">Compétition</span>
+                    <h5 class="text-white">🏆 Gagnante Public Speaking</h5>
+                    <p class="small text-muted mb-0">
+                        Première place dans une compétition oratoire. Démonstration de capacité de persuasion, confiance et communication.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="badge badge-info mb-2">Animation Événement</span>
+                    <h5 class="text-white">Enactus : “Shaping Tomorrow”</h5>
+                    <p class="small text-muted mb-0">
+                        Présentatrice de l’événement. Introduction des speakers, gestion du rythme et interaction avec le public.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="badge badge-success mb-2">Cérémonie Officielle</span>
+                    <h5 class="text-white">Forum d’Entreprise ENIAD (1ère éd.)</h5>
+                    <p class="small text-muted mb-0">
+                        Présentatrice officielle. Animation de la cérémonie d'ouverture et modération des intervenants.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="badge badge-danger mb-2">Modération</span>
+                    <h5 class="text-white">Animatrice de Panel</h5>
+                    <p class="small text-muted mb-0">
+                        Préparation des questions, interaction avec experts & intervenants, gestion du temps et rythme.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 mb-5">
+            <div class="col-md-6 mb-4">
+                <div class="p-4 rounded h-100" style="background: rgba(139, 92, 246, 0.05); border: 1px dashed var(--primary);">
+                    <h5 class="mb-4 text-white"><i class="ti-thought text-primary mr-2"></i> 🟣 Soft Skills</h5>
+                    <div class="d-flex flex-wrap">
+                        <span class="skill-tag border-primary">Leadership</span>
+                        <span class="skill-tag border-primary">Communication Pro</span>
+                        <span class="skill-tag border-primary">Public Speaking</span>
+                        <span class="skill-tag border-primary">Gestion d’équipe</span>
+                        <span class="skill-tag border-primary">Créativité</span>
+                        <span class="skill-tag border-primary">Organisation</span>
+                        <span class="skill-tag border-primary">Gestion de stress</span>
+                        <span class="skill-tag border-primary">Networking</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="p-4 rounded h-100" style="background: rgba(6, 182, 212, 0.05); border: 1px dashed var(--secondary);">
+                    <h5 class="mb-4 text-white"><i class="ti-desktop text-info mr-2"></i> 🔵 Skills Tech & Com</h5>
+                    <div class="d-flex flex-wrap">
+                        <span class="skill-tag" style="border-color: var(--secondary); color: white;">Création de contenu</span>
+                        <span class="skill-tag" style="border-color: var(--secondary); color: white;">Canva / Figma</span>
+                        <span class="skill-tag" style="border-color: var(--secondary); color: white;">Community Management</span>
+                        <span class="skill-tag" style="border-color: var(--secondary); color: white;">Gestion Réseaux Sociaux</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="d-flex align-items-center mb-4 mt-5">
+    <div style="width: 5px; height: 30px; background: linear-gradient(to bottom, #d946ef, #8b5cf6); margin-right: 15px; border-radius: 5px;"></div>
+    <h4 class="text-white mb-0">Mes Créations <span class="text-gradient">Graphiques & Design</span></h4>
+</div>
+
+<div class="row gallery-grid">
+    
+    <div class="col-lg-4 col-md-6 mb-">
+        <div class="memory-card" data-toggle="modal" data-target="#modalDesignUI">
+            <div class="css-cover cover-ui"></div>
+            
+            <div class="memory-overlay">
+                <div class="memory-content">
+                    <span class="memory-badge badge-purple"><i class="ti-layout-media-center"></i> UI/UX Design</span>
+                    <h5>Conception d'Interfaces</h5>
+                    <p>Interfaces web et mobiles centrées utilisateur.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-">
+        <div class="memory-card" data-toggle="modal" data-target="#modalDesignPrint">
+            <div class="css-cover cover-print"></div>
+            
+            <div class="memory-overlay">
+                <div class="memory-content">
+                    <span class="memory-badge badge-blue"><i class="ti-pencil-alt"></i> Print</span>
+                    <h5>Affiches & Flyers</h5>
+                    <p>Supports de communication.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-">
+        <div class="memory-card" data-toggle="modal" data-target="#modalDesignBranding">
+            <div class="css-cover cover-branding"></div>
+            
+            <div class="memory-overlay">
+                <div class="memory-content">
+                    <span class="memory-badge badge-orange"><i class="ti-id-badge"></i> Branding</span>
+                    <h5>Identité Visuelle</h5>
+                    <p>Logos et chartes graphiques.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="modalDesignUI" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white">UI/UX & Prototypage</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-white-50 text-center mb-4">Conception d'interfaces centrées utilisateur pour applications mobiles et web.</p>
+                
+                <div class="swiper myCoverflowSwiper pt-3 pb-5">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/ui1.png');"></div>
+                                <img src="assets/imgs/ui1.png" alt="AEGlass Mobile" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Application IoT</h3>
+                                <p>Interface mobile AlzGlass</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/ui2.png');"></div>
+                                <img src="assets/imgs/ui2.png" alt="Wireframes" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Architecture Web</h3>
+                                <p>Wireframing & Flux utilisateur</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                
+                <div class="bottom-details text-center mt-2 text-white-50">
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-layer-group"></i> Figma</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-mobile-alt"></i> Prototypage</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDesignPrint" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white">Affiches & Flyers</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-white-50 text-center mb-4">Supports de communication visuelle pour événements et campagnes marketing.</p>
+                
+                <div class="swiper myCoverflowSwiper pt-3 pb-5">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/flayer1.png');"></div>
+                                <img src="assets/imgs/flayer1.png" alt="Flyer ComeWork" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Flyer Promotionnel</h3>
+                                <p>Campagne App Recrutement</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/flayer2.png');"></div>
+                                <img src="assets/imgs/flayer2.png" alt="Eco Taxi" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Brochure</h3>
+                                <p>Dépliant institutionnel</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/flayer3.png');"></div>
+                                <img src="assets/imgs/flayer3.png" alt="Brochure" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Brochure Corporate</h3>
+                                <p>Dépliant institutionnel</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/flayer4.png');"></div>
+                                <img src="assets/imgs/flayer4.png" alt="Affiche Event" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Publicité Service</h3>
+                                <p>Affiche Eco Taxi</p>
+                            </div>
+                        </div><div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/flayer5.png');"></div>
+                                <img src="assets/imgs/flayer5.png" alt="Affiche Event" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Affiche Événement</h3>
+                                <p>Teasing Team Building</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+                <div class="bottom-details text-center mt-2 text-white-50">
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-print"></i> Print</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-bullhorn"></i> Marketing</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDesignBranding" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white">Identité Visuelle & Logos</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-white-50 text-center mb-4">
+                    Une collection de logos et chartes graphiques conçues pour des marques innovantes.
+                </p>
+
+                <div class="swiper myCoverflowSwiper pt-3 pb-5">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/logo1.png');"></div>
+                                <img src="assets/imgs/logo1.png" alt="Logo Nurlai" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Branding Tech</h3>
+                                <p>Identité Data Science & IA</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/logo2.png');"></div>
+                                <img src="assets/imgs/logo2.png" alt="Logo ComeWork" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Logo Minimaliste</h3>
+                                <p>Identité Visuelle RH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                
+                <div class="bottom-details text-center mt-2 text-white-50">
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-pen-nib"></i> Illustrator</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-vector-square"></i> Vectoriel</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+
+
+<section class="section" id="contact">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <div class="col-md-6 mb-5 mb-md-0">
+                <p class="section-subtitle">Me contacter</p>
+                <h2 class="section-title mb-3">Travaillons <br><span class="text-gradient">Ensemble</span></h2>
+                <p class="mb-5 text-muted" style="max-width: 400px;">
+                    Vous avez un projet innovant, une opportunité de stage ou simplement envie de discuter Tech ? 
+                    Mon inbox est toujours ouverte.
+                </p>
+                
+                <div class="contact-info-item d-flex align-items-center mb-4">
+                    <div class="icon-box">
+                        <i class="ti-location-pin"></i>
+                    </div>
+                    <div class="text-box ml-3">
+                        <h6 class="text-white mb-0">Localisation</h6>
+                        <span class="text-muted small">Casablanca, Maroc</span>
+                    </div>
+                </div>
+
+                <div class="contact-info-item d-flex align-items-center">
+                    <div class="icon-box">
+                        <i class="ti-email"></i>
+                    </div>
+                    <div class="text-box ml-3">
+                        <h6 class="text-white mb-0">Email</h6>
+                        <span class="text-muted small">wiambouras9@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <form action="https://formspree.io/f/xaqdwlgd" method="POST" class="contact-form-card p-4 p-md-5">
+                    
+                    <h4 class="text-white mb-4">Envoyer un message</h4>
+
+                    <div class="form-group mb-4">
+                        <label class="text-muted small">Votre Nom</label>
+                        <input type="text" name="name" class="form-control contact-input" required>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="text-muted small">Votre Email</label>
+                        <input type="email" name="email" class="form-control contact-input" required>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="text-muted small">Votre Message</label>
+                        <textarea name="message" rows="4" class="form-control contact-input" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-glow btn-block">
+                        Envoyer <i class="ti-arrow-right ml-2"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <div class="py-4 text-center" style="border-top: 1px solid rgba(255,255,255,0.05);">
+        <p class="small text-muted mb-0">&copy; 2025 Wiam Bourass.</p>
+    </div>
+
+<div class="modal fade" id="modalProjet1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark theme-blue">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white">Plateforme de Télétravail</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-white-50 text-center mb-4">
+                    Cette plateforme fournit une interface conviviale, moderne et intuitive, permettant aux employés de collaborer efficacement, quel que soit leur lieu de travail.
+                </p>
+                <div class="swiper myCoverflowSwiper pt-3 pb-5">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/tele1.png');"></div>
+                                <img src="assets/imgs/tele1.png" alt="Vue Principale" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Page d’accueil</h3>
+                                <p>Vue d'ensemble</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/tele2.png');"></div>
+                                <img src="assets/imgs/tele2.png" alt="Interface Espaces" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Espaces de travail</h3>
+                                <p>Création d'espace</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/tele3.png');"></div>
+                                <img src="assets/imgs/tele3.png" alt="Page Équipe" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Page Équipe</h3>
+                                <p>Collaboration</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/tele4.png');"></div>
+                                <img src="assets/imgs/tele4.png" alt="Paramètres" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Page Modèle</h3>
+                                <p>Configuration</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/tele5.png');"></div>
+                                <img src="assets/imgs/tele5.png" alt="Détails Modèle" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Détails du modèle</h3>
+                                <p>Visualisation</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/tele6.png');"></div>
+                                <img src="assets/imgs/tele6.png" alt="Création" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Créer une page</h3>
+                                <p>Éditeur</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="bottom-details text-center mt-2 text-white-50">
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-rocket"></i> Astro</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-database"></i> Strapi</span>
+                    <span class="badge badge-dark p-2"><i class="fas fa-desktop"></i> Web App</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalProjet2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark theme-red">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white">Migration Keycloak</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-white-50 text-center mb-4">
+                    Ce projet consistait à migrer l'infrastructure Keycloak existante de la version 9 vers la version 24. Cette mise à jour critique a permis d'intégrer les dernières fonctionnalités de sécurité, d'appliquer des correctifs majeurs et d'assurer la conformité avec les nouvelles normes réglementaires.
+                </p>
+                <div class="swiper myCoverflowSwiper pt-3 pb-5">
+                    <div class="swiper-wrapper justify-content-center">
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/R.png');"></div>
+                                <img src="assets/imgs/R.png" class="main-image" alt="Architecture Keycloak" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Architecture IAM</h3>
+                                <p>Sécurité & Identité</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="bottom-details text-center mt-2 text-white-50">
+                    <span class="badge badge-dark p-2 mr-2"><i class="fab fa-java"></i> Java</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-key"></i> Keycloak</span>
+                    <span class="badge badge-dark p-2"><i class="fas fa-shield-alt"></i> Sécurité</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalProjet3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark theme-indigo">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white">Gestion des Rapports</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-white-50 text-center mb-4">
+                    Cette application facilite le dépôt électronique des rapports, offrant flexibilité aux étudiants et efficacité aux enseignants. Elle centralise la soumission, la correction et l'archivage, réduisant l'empreinte papier et optimisant le suivi académique.
+                </p>
+                <div class="swiper myCoverflowSwiper pt-3 pb-5">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/rapport.png');"></div>
+                                <img src="assets/imgs/rapport.png" alt="Choix Espace" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Choix de l'espace</h3>
+                                <p>Navigation par rôle</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/rapport1.png');"></div>
+                                <img src="assets/imgs/rapport1.png" alt="Authentification" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Authentification</h3>
+                                <p>Accès sécurisé</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/rapport2.png');"></div>
+                                <img src="assets/imgs/rapport2.png" alt="Espace Étudiant" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Espace Étudiant</h3>
+                                <p>Gestion des dépôts</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/rapport3.png');"></div>
+                                <img src="assets/imgs/rapport3.png" alt="Soumission" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Soumission</h3>
+                                <p>Upload de fichiers</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/rapport4.png');"></div>
+                                <img src="assets/imgs/rapport4.png" alt="Espace Enseignant" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Espace Enseignant</h3>
+                                <p>Suivi et Validation</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/rapport5.png');"></div>
+                                <img src="assets/imgs/rapport5.png" alt="Administration" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Administration</h3>
+                                <p>Gestion des utilisateurs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="bottom-details text-center mt-2 text-white-50">
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-code"></i> ASP.NET Core</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-database"></i> SQL Server</span>
+                    <span class="badge badge-dark p-2"><i class="fas fa-desktop"></i> Web App</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalProjet4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark theme-orange">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white">Route Bus - Tracking</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-white-50 text-center mb-4">
+                    Route Bus révolutionne la mobilité urbaine. Cette application intuitive permet aux usagers de planifier leurs trajets, de consulter les tarifs et, surtout, de suivre la position des bus en temps réel sur une carte interactive, éliminant l'incertitude des temps d'attente.
+                </p>
+                <div class="swiper myCoverflowSwiper pt-3 pb-5">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/transport.png');"></div>
+                                <img src="assets/imgs/transport.png" alt="Bienvenue" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Bienvenue</h3>
+                                <p>Onboarding utilisateur</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/transport2.jpeg');"></div>
+                                <img src="assets/imgs/transport2.jpeg" alt="Accueil" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Accueil</h3>
+                                <p>Recherche simplifiée</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/transport3.jpeg');"></div>
+                                <img src="assets/imgs/transport3.jpeg" alt="Planification" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Planification</h3>
+                                <p>Définition du trajet</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/transport4.jpeg');"></div>
+                                <img src="assets/imgs/transport4.jpeg" alt="Itinéraires" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Itinéraires</h3>
+                                <p>Durée et Tarifs</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/transport5.jpeg');"></div>
+                                <img src="assets/imgs/transport5.jpeg" alt="Navigation" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Navigation</h3>
+                                <p>Tracé de la ligne</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/transport6.jpeg');"></div>
+                                <img src="assets/imgs/transport6.jpeg" alt="Temps Réel" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Temps Réel</h3>
+                                <p>Suivi GPS du bus</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/transport7.jpeg');"></div>
+                                <img src="assets/imgs/transport7.jpeg" alt="Vue Globale" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Vue Globale</h3>
+                                <p>Carte du réseau</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="bottom-details text-center mt-2 text-white-50">
+                    <span class="badge badge-dark p-2 mr-2"><i class="fab fa-android"></i> Flutter / Dart</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-map-marked-alt"></i> Google Maps API</span>
+                    <span class="badge badge-dark p-2"><i class="fas fa-location-arrow"></i> Geolocator</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalProjet5" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark theme-teal">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white">Hôtel de Rêve - Booking</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-white-50 text-center mb-4">
+                    Hôtel de Rêve est une plateforme de réservation complète développée avec Laravel. Elle offre une expérience utilisateur fluide pour découvrir les chambres, vérifier la disponibilité en temps réel, et réserver des séjours ou des activités, tout en proposant un back-office robuste pour l'administration.
+                </p>
+                <div class="swiper myCoverflowSwiper pt-3 pb-5">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/hotel.jpg');"></div>
+                                <img src="assets/imgs/hotel.png" alt="Bienvenue" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Bienvenue</h3>
+                                <p>Portail de réservation</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/hotel1.jpg');"></div>
+                                <img src="assets/imgs/hotel1.png" alt="Espace Client" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Espace Client</h3>
+                                <p>Authentification sécurisée</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/hotel2.jpg');"></div>
+                                <img src="assets/imgs/hotel2.png" alt="Détails & Tarifs" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Détails & Tarifs</h3>
+                                <p>Fiche descriptive</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/hotel3.jpg');"></div>
+                                <img src="assets/imgs/hotel3.png" alt="Recherche" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Recherche</h3>
+                                <p>Disponibilité des chambres</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/hotel4.jpg');"></div>
+                                <img src="assets/imgs/hotel4.png" alt="Services" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Services</h3>
+                                <p>Restauration et extras</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/hotel5.jpg');"></div>
+                                <img src="assets/imgs/hotel5.png" alt="Loisirs" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Loisirs</h3>
+                                <p>Réservation d'activités</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="bottom-details text-center mt-2 text-white-50">
+                    <span class="badge badge-dark p-2 mr-2"><i class="fab fa-laravel"></i> Laravel</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-layer-group"></i> Fullstack</span>
+                    <span class="badge badge-dark p-2"><i class="fas fa-database"></i> MySQL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalProjet6" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark theme-purple">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-white">EcoGrid - Smart Energy AI</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-white-50 text-center mb-4">
+                    EcoGrid est une solution IoT intelligente combinant une application mobile Flutter et un backend Python. Elle permet de surveiller la consommation électrique en temps réel, de détecter les anomalies (surcharges) grâce au Machine Learning, de contrôler les appareils à distance et d'analyser l'historique pour optimiser la facture énergétique.
+                </p>
+                <div class="swiper myCoverflowSwiper pt-3 pb-5">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/ecogrid.jpeg');"></div>
+                                <img src="assets/imgs/ecogrid.jpeg" alt="EcoGrid IA" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>EcoGrid IA</h3>
+                                <p>Système Énergétique Intelligent</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/ecogrid1.jpeg');"></div>
+                                <img src="assets/imgs/ecogrid1.jpeg" alt="Monitoring Live" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Monitoring Live</h3>
+                                <p>Consommation en temps réel</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/ecogrid4.jpeg');"></div>
+                                <img src="assets/imgs/ecogrid4.jpeg" alt="Alerte Intelligente" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Alerte Intelligente</h3>
+                                <p>Détection de surcharge & Conseils</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/ecogrid5.jpeg');"></div>
+                                <img src="assets/imgs/ecogrid5.jpeg" alt="Analyse Journalière" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Analyse Journalière</h3>
+                                <p>Courbe de charge 24h</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/ecogrid6.jpeg');"></div>
+                                <img src="assets/imgs/ecogrid6.jpeg" alt="Historique" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Historique</h3>
+                                <p>Bilan annuel interactif</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/ecogrid3.jpeg');"></div>
+                                <img src="assets/imgs/ecogrid3.jpeg" alt="Gestion Appareils" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Gestion Appareils</h3>
+                                <p>Ajout et contrôle manuel</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <div class="blur-background" style="background-image: url('assets/imgs/ecogrid7.jpeg');"></div>
+                                <img src="assets/imgs/ecogrid7.jpeg" alt="Configuration" class="main-image" />
+                            </div>
+                            <div class="slide-content">
+                                <h3>Configuration</h3>
+                                <p>Seuil d'alerte et préférences</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="bottom-details text-center mt-2 text-white-50">
+                    <span class="badge badge-dark p-2 mr-2"><i class="fab fa-android"></i> Flutter / Dart</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fab fa-python"></i> Python Flask</span>
+                    <span class="badge badge-dark p-2 mr-2"><i class="fas fa-brain"></i> IA</span>
+                    <span class="badge badge-dark p-2"><i class="fas fa-chart-line"></i> Machine Learning</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="#home" class="back-to-top"><i class="ti-angle-up"></i></a>
+    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+    <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+    <script src="assets/js/meyawo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    
+    <script>
+        function toggleSkill(element) {
+            element.classList.toggle('active');
+        }
+ document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper(".myCoverflowSwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true, // Important pour le scroll infini
+            
+            // === LES LIGNES MAGIQUES POUR LE MODAL ===
+            observer: true,       // Détecte les changements de style (quand le modal s'ouvre)
+            observeParents: true, // Surveille le conteneur parent (le modal)
+            // =========================================
+
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
+                slideShadows: true,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            // Permet de scroller avec la souris ou le doigt
+            allowTouchMove: true,
+        });
+    });
+
+    var typed = new Typed('#typed-text', {
+    strings: ['Élève Ingénieur IA', 'Développeuse Fullstack', 'Passionnée de Data', 'Leader Engagée'],
+    typeSpeed: 60,
+    backSpeed: 50,
+    loop: true,
+    cursorChar: '|'
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+        // Cette boucle permet d'activer le Swiper pour CHAQUE modal séparément
+        document.querySelectorAll('.myCoverflowSwiper').forEach(function(swiperElement) {
+            new Swiper(swiperElement, {
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                loop: true,
+                
+                // Options critiques pour les Modals
+                observer: true, 
+                observeParents: true,
+
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: swiperElement.querySelector(".swiper-pagination"), // Cible la pagination DANS ce swiper spécifique
+                    clickable: true,
+                },
+                allowTouchMove: true,
+            });
+        });
+    });
+    </script>
+
+</body>
+</html>
