@@ -1,92 +1,79 @@
-    /* =========================================
-       1. VARIABLES & CONFIGURATION GLOBALE
-       ========================================= */
-    :root {
-        /* Palette de couleurs */
-        --bg-body: #0f172a;       /* Bleu nuit très sombre */
-        --bg-card: #1e293b;       /* Gris bleu pour les cartes */
-        --primary: #8b5cf6;       /* Violet électrique */
-        --secondary: #06b6d4;     /* Cyan néon */
-        --text-main: #f1f5f9;     /* Blanc cassé */
-        --text-muted: #94a3b8;    /* Gris clair pour le texte secondaire */
-        
-        /* Gradients fréquents */
-        --grad-primary: linear-gradient(135deg, var(--primary), #7c3aed);
-        --grad-text: linear-gradient(to right, var(--primary), #d946ef);
-    }
+/* 1. VARIABLES & CONFIGURATION GLOBALE */
+:root {
+    --bg-body: #0f172a;      
+    --bg-card: #1e293b;      
+    --primary: #8b5cf6;       
+    --secondary: #06b6d4;     
+    --text-main: #f1f5f9;    
+    --text-muted: #94a3b8;   
+    --grad-primary: linear-gradient(135deg, var(--primary), #7c3aed);
+    --grad-text: linear-gradient(to right, var(--primary), #d946ef);
+}
 
-    /* Reset de base pour éviter les comportements inattendus */
-    *, *::before, *::after {
-        box-sizing: border-box;
-    }
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
-    html, body {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden; /* Empêche le scroll horizontal causé par les animations */
-        margin: 0;
-        padding: 0;
-        scroll-behavior: smooth; /* Défilement fluide pour les ancres */
-    }
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; 
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth; /* Défilement fluide pour les ancres */
+}
 
-    /* =========================================
-       2. TYPOGRAPHIE & BODY BACKGROUND
-       ========================================= */
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--bg-body);
-        color: var(--text-main);
-        
-        /* Texture de grille subtile en arrière-plan */
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        background-size: 40px 40px;
-        position: relative; /* Nécessaire pour les effets Aurora */
-    }
+/* 2. TYPOGRAPHIE & BODY BACKGROUND */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    position: relative; /* Nécessaire pour les effets Aurora */
+}
 
-    h1, h2, h3, h4, h5, h6 {
-        color: var(--text-main);
-        font-weight: 700;
-        letter-spacing: -0.5px;
-        margin-top: 0;
-    }
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-top: 0;
+}
 
-    p {
-        color: var(--text-muted);
-        line-height: 1.7;
-        margin-bottom: 1rem;
-    }
+p {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
 
-    /* Utilitaires de texte */
-    .text-gradient {
-        background: var(--grad-text);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
+.text-gradient {
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
-    .text-cyan-glow {
-        color: var(--secondary);
-        text-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
-    }
+.text-cyan-glow {
+    color: var(--secondary);
+    text-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+}
 
-    /* --- EFFET LUMIÈRE EN BAS (BOTTOM GLOW) --- */
 .bottom-glow {
     position: absolute;
-    bottom: -50px; /* On le baisse un peu pour que le cœur blanc soit tout en bas */
+    bottom: -50px;
     left: 0;
     width: 100%;
-    height: 100%; /* La hauteur de la lumière */
-    /* Le dégradé : Blanc brillant au centre -> Cyan -> Transparent */
+    height: 100%; 
     background: radial-gradient(ellipse at bottom, 
-                rgba(255, 255, 255, 0.8) 0%, 
-                rgba(6, 182, 212, 0.4) 100%, 
-                transparent 70%);
-    z-index: 1; /* Derrière le texte (qui est z-index 2) */
-    pointer-events: none; /* Important : permet de cliquer au travers */
-    filter: blur(20px); /* Adoucit la lumière */
-    animation: pulseGlow 5s infinite alternate; /* Optionnel : petite respiration */
+            rgba(255, 255, 255, 0.8) 0%, 
+            rgba(6, 182, 212, 0.4) 100%, 
+            transparent 70%);
+    z-index: 1; 
+    pointer-events: none;
+    filter: blur(20px); 
+    animation: pulseGlow 5s infinite alternate; 
 }
 
 @keyframes pulseGlow {
@@ -94,14 +81,12 @@
     100% { opacity: 1; transform: scaleY(1.1); }
 }
 
-    /* =========================================
-       3. BACKGROUND ANIMÉ (AURORA EFFECT)
-       ========================================= */
+    /* 3. BACKGROUND ANIMÉ (AURORA EFFECT)*/
     /* Crée les lueurs colorées en arrière-plan */
     .aesthetic-bg-aurora::before,
     .aesthetic-bg-aurora::after {
         content: '';
-        position: fixed; /* Fixed pour que ça suive le scroll */
+        position: fixed; 
         filter: blur(120px);
         z-index: -1;
         opacity: 0.5;
@@ -109,56 +94,51 @@
         pointer-events: none;
     }
 
-    /* Bulle Violette */
-    .aesthetic-bg-aurora::before {
+.aesthetic-bg-aurora::before {
         width: 50vw; height: 50vh;
         background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, rgba(0,0,0,0) 70%);
         top: -10%; left: -10%;
-    }
+}
 
-    /* Bulle Cyan */
-    .aesthetic-bg-aurora::after {
+.aesthetic-bg-aurora::after {
         width: 60vw; height: 60vh;
         background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, rgba(0,0,0,0) 70%);
         bottom: -10%; right: -10%;
         animation-delay: -5s;
         animation-duration: 25s;
-    }
+}
 
-    @keyframes auroraMove {
+@keyframes auroraMove {
         0% { transform: translate(0, 0) scale(1); }
         50% { transform: translate(10%, 20%) scale(1.1); }
         100% { transform: translate(-10%, 10%) scale(0.9); }
-    }
+}
 
-    /* =========================================
-       4. NAVBAR STYLISÉE
-       ========================================= */
-    .custom-navbar {
-        background: transparent;
-        position: fixed;
-        width: 100%;
-        height: 8%; /* Laisser la hauteur s'adapter */
-        min-height: 80px;
-        z-index: 1000;
-        transition: 0.4s ease;
-        padding: 20px 0;
-    }
+    /* 4. NAVBAR STYLISÉE */
+.custom-navbar {
+    background: transparent;
+    position: fixed;
+    width: 100%;
+    height: 8%; 
+    min-height: 80px;
+    z-index: 1000;
+    transition: 0.4s ease;
+    padding: 20px 0;
+}
 
     .custom-navbar.affix {
-        background: rgba(15, 23, 42, 0.95); /* Fond semi-transparent au scroll */
+        background: rgba(15, 23, 42, 0.95); 
         padding: 10px 0;
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         border-bottom: 1px solid rgba(255,255,255,0.05);
-        backdrop-filter: blur(10px); /* Effet de flou derrière la navbar */
+        backdrop-filter: blur(10px); 
     }
 
     .custom-navbar .logo img {
-        max-height: 50px; /* Taille contrôlée du logo image */
+        max-height: 50px; 
         width: auto;
     }
 
-    /* Logo Textuel (Code Style) */
     .logo-text {
         font-family: 'Fira Code', monospace;
         font-weight: 700;
@@ -185,18 +165,15 @@
         transform: translateY(-2px);
     }
 
-    /* =========================================
-       5. HERO SECTION (HEADER)
-       ========================================= */
+    /* 5. HERO SECTION (HEADER) */
     .header {
         position: relative;
-        height: 100vh; /* Prend tout l'écran */
+        height: 100vh; 
         min-height: 600px;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        /* Dégradé radial central subtil */
         background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 80%);
         margin-bottom: 60px;
         box-shadow: 0 20px 50px rgba(0,0,0,0.3);
@@ -235,7 +212,6 @@
         font-weight: 300;
     }
 
-    /* Animation du logo en arrière-plan */
     .bg-logo-moving {
         position: absolute;
         top: 50%; left: 50%;
@@ -252,37 +228,32 @@
         100% { transform: translate(-50%, -52%) scale(1.05) rotate(2deg); }
     }
 
-    /* Glow effect en bas du header */
-/* --- EFFET LUMIÈRE EN BAS (STYLE HORIZON GLOW) --- */
 .bottom-glow {
     position: absolute;
-    bottom: 0; /* Collé tout en bas */
+    bottom: 0; 
     left: 0;
     width: 100%;
-    height: 300px; /* Hauteur de diffusion de la lumière */
-    
-    /* Le secret : un cœur blanc pur (100%), entouré de Cyan fort (60%), puis transparent */
+    height: 300px; 
+ 
     background: radial-gradient(
         ellipse at center bottom, 
-        rgba(255, 255, 255, 1) 0%,    /* Cœur Blanc pur et intense */
-        rgba(6, 182, 212, 0.8) 20%,   /* Cyan très brillant autour */
-        rgba(6, 182, 212, 0.2) 50%,   /* Cyan diffus */
+        rgba(255, 255, 255, 1) 0%,    
+        rgba(6, 182, 212, 0.8) 20%,   
+        rgba(6, 182, 212, 0.2) 50%,   
         transparent 70%
     );
     
-    z-index: 3; /* Au-dessus des éléments de fond mais attention à ne pas cacher les liens */
-    pointer-events: none; /* Permet de cliquer à travers la lumière */
-    filter: blur(15px); /* Un léger flou pour adoucir les bords sans perdre l'intensité */
-    mix-blend-mode: screen; /* Fusionne la lumière avec le fond pour un effet "Glow" réaliste */
+    z-index: 3; 
+    pointer-events: none; 
+    filter: blur(15px); 
+    mix-blend-mode: screen; 
 }
     @keyframes pulseGlow {
         0% { opacity: 0.6; transform: scaleY(1); }
         100% { opacity: 1; transform: scaleY(1.2); }
     }
 
-    /* =========================================
-       6. BOUTONS & INTERACTIONS
-       ========================================= */
+    /* 6. BOUTONS & INTERACTIONS */
     .btn-glow {
         background: var(--grad-primary);
         color: white;
@@ -353,22 +324,17 @@
         color: var(--secondary); transform: scale(1.2); text-shadow: 0 0 15px var(--secondary);
     }
 
-    /* =========================================
-   STYLE COMPÉTENCES (SKILLS)
-   ========================================= */
+    /* STYLE COMPÉTENCES */
 
-/* Structure de la carte compétence */
 .skill-card {
     padding: 25px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    /* On réutilise le style de base .tech-card mais on peut l'affiner ici */
     background: #1E222B;
     border: 1px solid rgba(255,255,255,0.05);
 }
 
-/* En-tête de la carte (Icone + Titre) */
 .card-header-skill {
     display: flex;
     align-items: center;
@@ -387,7 +353,6 @@
 .card-header-skill i {
     font-size: 1.5rem;
     margin-right: 15px;
-    /* Fond de l'icône sombre pour faire ressortir le gradient */
     background-color: rgba(255,255,255,0.05);
     padding: 10px;
     border-radius: 10px;
@@ -398,15 +363,11 @@
     align-items: center;
 }
 
-/* Liste des tags */
 .skills-list {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
 }
-
-/* --- DÉGRADÉS DE COULEURS POUR LES ICÔNES --- */
-/* Pour appliquer un dégradé sur une icône (font), on utilise background-clip: text */
 
 .icon-gradient-purple {
     background-image: linear-gradient(45deg, #a855f7, #ec4899);
@@ -464,8 +425,6 @@
 }
 .hover-glow-lime:hover { border-color: #84cc16; box-shadow: 0 10px 30px rgba(132, 204, 22, 0.15); }
 
-
-/* Base pour les couvertures CSS */
 .css-cover {
     width: 100%;
     height: 100%;
@@ -475,26 +434,19 @@
     transition: transform 0.6s ease;
 }
 
-/* Effet Zoom au survol (comme pour les images) */
 .memory-card:hover .css-cover {
     transform: scale(1.1);
 }
 
-/* --- OPTION 1 : UI/UX (Digital Grid & Glow) --- */
-/* Un fond technologique bleu nuit avec une grille et une lueur violette */
 .cover-ui {
     background-color: #0F1115;
     background-image: 
-        /* Lueur radiale */
         radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
-        /* Grille fine */
         linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
-/* --- OPTION 2 : Print (Geometric Layers) --- */
-/* Des formes géométriques tranchées (Cyan & Rose) rappelant le papier découpé */
 .cover-print {
     background-color: #1e293b;
     background: 
@@ -504,8 +456,6 @@
     opacity: 0.8;
 }
 
-/* --- OPTION 3 : Branding (The Core) --- */
-/* Une orbe centrale puissante (Orange/Violet) pour symboliser l'identité */
 .cover-branding {
     background-color: #0F1115;
     background-image: 
@@ -514,14 +464,11 @@
 }
 
 
-    /* =========================================
-       7. SECTION PORTFOLIO (CARDS DESIGN)
-       ========================================= */
+    /* 7. SECTION PORTFOLIO  */
     .section-title { font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; }
-    
-    /* Fond de carte unifié et moderne */
+
     .project-card, .tech-card {
-        background-color: var(--bg-card); /* #1E222B */
+        background-color: var(--bg-card); 
         border-radius: 16px;
         overflow: hidden;
         cursor: pointer;
@@ -535,11 +482,10 @@
 
     .project-card:hover, .tech-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2); /* Ombre violette */
+        box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2); 
         border-color: rgba(108, 99, 255, 0.3);
     }
 
-    /* Zone Image de la carte */
     .card-img-wrapper {
         position: relative;
         width: 100%;
@@ -551,7 +497,6 @@
     }
     .project-card:hover .card-img-wrapper img { transform: scale(1.1); }
 
-    /* Overlay "Voir" au survol */
     .card-overlay {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         background: rgba(108, 99, 255, 0.6);
@@ -562,11 +507,9 @@
     .project-card:hover .card-overlay { opacity: 1; }
     .project-card:hover .card-overlay i { transform: scale(1); }
 
-    /* Corps de la carte */
     .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
     .card-title { color: #fff; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; }
 
-    /* Badges de technologies */
     .tags-container { display: flex; flex-wrap: wrap; gap: 8px; }
     .tech-badge, .skill-tag {
         background: rgba(108, 99, 255, 0.1);
@@ -580,10 +523,7 @@
     }
     .project-card:hover .tech-badge { background: rgba(108, 99, 255, 0.9); color: white; border-color: transparent; }
 
-    /* =========================================
-       8. LEADERSHIP & TIMELINE
-       ========================================= */
-    /* Cartes Associatives */
+    /* 8. LEADERSHIP & TIMELINE*/
     .assoc-card {
         background: rgba(30, 41, 59, 0.4);
         border: 1px solid rgba(255, 255, 255, 0.05);
@@ -610,7 +550,6 @@
     .assoc-list li { position: relative; padding-left: 20px; margin-bottom: 8px; font-size: 0.9rem; }
     .assoc-list li::before { content: '▹'; position: absolute; left: 0; color: var(--primary); }
 
-    /* Timeline Verticale */
     .timeline-container { position: relative; padding: 20px 0; }
     .timeline-line {
         position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
@@ -627,91 +566,73 @@
         border-radius: 50%; position: absolute; left: 50%; transform: translateX(-50%); z-index: 2;
         box-shadow: 0 0 10px var(--secondary);
     }
-    
-    /* Alternance Gauche/Droite Timeline */
     .timeline-row:nth-child(odd) { flex-direction: row-reverse; }
     .timeline-row:nth-child(odd) .timeline-content { text-align: left; }
     .timeline-row:nth-child(even) .timeline-content { text-align: right; }
 
-    /* Espace entre les tags de compétences */
 .skill-tag {
-    margin: 5px; /* Ajoute 5px d'espace tout autour de chaque tag */
-    display: inline-block; /* Assure que le margin fonctionne bien */
+    margin: 5px; 
+    display: inline-block; 
 }
 
-/* Si vous voulez un espace spécifique entre les deux gros blocs (Soft Skills / Tech & Com) */
 .col-md-6 {
-    padding: 15px; /* Ajoute de l'espace intérieur aux colonnes */
+    padding: 15px; 
 }
 
-
-/* --- THÈMES COULEURS PROJETS --- */
-
-/* Base pour tous les thèmes : transition douce */
 .modal-content {
     border: 1px solid rgba(255,255,255,0.1);
     transition: all 0.3s ease;
 }
 
-/* 1. THÈME BLEU (Télétravail) */
 .theme-blue {
-    border-color: #3b82f6; /* Bleu */
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); /* Lueur bleue */
+    border-color: #3b82f6; 
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); 
 }
 .theme-blue .modal-header { border-bottom: 1px solid rgba(59, 130, 246, 0.3); }
 .theme-blue .badge { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
 
-/* 2. THÈME ROUGE/GRIS (Keycloak) */
 .theme-red {
-    border-color: #ef4444; /* Rouge */
+    border-color: #ef4444; 
     box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
 }
 .theme-red .modal-header { border-bottom: 1px solid rgba(239, 68, 68, 0.3); }
 .theme-red .badge { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
 
-/* 3. THÈME INDIGO (Rapports) */
 .theme-indigo {
-    border-color: #6366f1; /* Indigo */
+    border-color: #6366f1;
     box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
 }
 .theme-indigo .modal-header { border-bottom: 1px solid rgba(99, 102, 241, 0.3); }
 .theme-indigo .badge { background: rgba(99, 102, 241, 0.2); color: #c7d2fe; }
 
-/* 4. THÈME ORANGE (Bus) */
 .theme-orange {
-    border-color: #f97316; /* Orange */
+    border-color: #f97316; 
     box-shadow: 0 0 30px rgba(249, 115, 22, 0.25);
 }
 .theme-orange .modal-header { border-bottom: 1px solid rgba(249, 115, 22, 0.3); }
 .theme-orange .badge { background: rgba(249, 115, 22, 0.2); color: #fdba74; }
 
-/* 5. THÈME TEAL/VERT (Hôtel) */
 .theme-teal {
-    border-color: #14b8a6; /* Teal */
+    border-color: #14b8a6; 
     box-shadow: 0 0 30px rgba(20, 184, 166, 0.25);
 }
 .theme-teal .modal-header { border-bottom: 1px solid rgba(20, 184, 166, 0.3); }
 .theme-teal .badge { background: rgba(20, 184, 166, 0.2); color: #99f6e4; }
 
-/* 6. THÈME VIOLET/ÉLECTRIQUE (EcoGrid) */
 .theme-purple {
-    border-color: #d946ef; /* Fuchsia/Violet */
+    border-color: #d946ef; 
     box-shadow: 0 0 30px rgba(217, 70, 239, 0.25);
 }
 .theme-purple .modal-header { border-bottom: 1px solid rgba(217, 70, 239, 0.3); }
 .theme-purple .badge { background: rgba(217, 70, 239, 0.2); color: #f5d0fe; }
 
-    /* =========================================
-       9. MODAL & SWIPER (CAROUSEL 3D)
-       ========================================= */
+    /*  9. MODAL & SWIPER (CAROUSEL 3D)*/
     .modal-content { background-color: var(--bg-card); color: var(--text-main); border: 1px solid rgba(255,255,255,0.1); }
     .modal-dark { background-color: #1a1a2e; color: #fff; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
     .close { color: white; opacity: 1; text-shadow: none; }
 
-    /* Swiper Container */
     .swiper.myCoverflowSwiper { width: 100%; padding-top: 50px; padding-bottom: 50px; }
-    
-    /* Carte Swiper individuelle */
+ 
     .myCoverflowSwiper .swiper-slide {
         width: 300px; height: 450px;
         border-radius: 20px; overflow: hidden;
@@ -724,7 +645,6 @@
         box-shadow: 0 20px 40px -10px rgba(108, 99, 255, 0.8);
     }
 
-    /* Images Magiques (Flou + Net) */
     .image-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
     .blur-background {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -737,7 +657,6 @@
         filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
     }
 
-    /* Texte sur le slide */
     .slide-content {
         position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 20px 20px; z-index: 3;
         background: linear-gradient(to top, rgba(15, 17, 21, 0.95) 20%, transparent 100%);
@@ -746,14 +665,11 @@
     .slide-content h3 { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0; }
     .slide-content p { margin: 5px 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
 
-    /* Pagination Swiper */
     .swiper-pagination-bullet { background: rgba(255,255,255,0.5); }
     .swiper-pagination-bullet-active { background: #6C63FF; }
 
 
-    /* =========================================
-   11. STYLE GALERIE (MEMORY WALL) - À AJOUTER
-   ========================================= */
+    /*  11. STYLE GALERIE */
 .memory-card {
     position: relative;
     border-radius: 20px;
@@ -805,13 +721,11 @@
     transition: all 0.4s ease;
 }
 
-/* Effets au survol */
 .memory-card:hover img { transform: scale(1.1); }
 .memory-card:hover { border-color: var(--secondary); box-shadow: 0 15px 40px rgba(6, 182, 212, 0.15); }
 .memory-card:hover .memory-content { transform: translateY(0); }
 .memory-card:hover .memory-content p { opacity: 1; max-height: 50px; margin-top: 5px; }
 
-/* Badges */
 .memory-badge {
     display: inline-block; padding: 5px 12px; border-radius: 50px;
     font-size: 0.75rem; font-weight: 600; margin-bottom: 10px;
@@ -822,9 +736,7 @@
 .badge-green { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
 .badge-orange { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
 
-/* --- SECTION CONTACT MODERNISÉE --- */
-
-/* 1. Les infos à gauche */
+/*  SECTION CONTACT MODERNISÉE  */
 .icon-box {
     width: 50px; height: 50px;
     background: rgba(139, 92, 246, 0.1); /* Fond violet très léger */
@@ -840,47 +752,37 @@
     transform: rotate(10deg);
 }
 
-/* --- FORMULAIRE COMPACT AVEC OMBRE LATÉRALE --- */
-
 .contact-form-card {
-    background: rgba(30, 41, 59, 0.7); /* Fond un peu plus sombre */
+    background: rgba(30, 41, 59, 0.7);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 20px;
-    
-    /* 1. DIMINUER LA HAUTEUR */
-    padding: 30px !important; /* On réduit le padding (avant c'était p-4 ou p-5) */
-    
-    /* 2. OMBRE SUR LES CÔTÉS (Gauche et Droite) */
-    /* format: décalage-X décalage-Y flou couleur */
+    padding: 30px !important; 
     box-shadow: 
-        15px 0 40px rgba(139, 92, 246, 0.4),  /* Ombre Droite */
-        -15px 0 40px rgba(139, 92, 246, 0.4), /* Ombre Gauche */
-        0 10px 30px rgba(0,0,0,0.3);     /* Ombre Bas classique */
+        15px 0 40px rgba(139, 92, 246, 0.4), 
+        -15px 0 40px rgba(139, 92, 246, 0.4), 
+        0 10px 30px rgba(0,0,0,0.3);  
 }
 
-/* Réduire l'espace entre les champs pour gagner encore de la hauteur */
 .contact-form-card .form-group {
-    margin-bottom: 15px !important; /* Réduit de mb-4 (24px) à 15px */
+    margin-bottom: 15px !important;
 }
 
 .contact-form-card h4 {
-    margin-bottom: 20px !important; /* Réduit l'espace sous le titre */
+    margin-bottom: 20px !important; 
 }
 
 .contact-input {
-    padding: 10px 15px; /* Champs un peu moins hauts */
+    padding: 10px 15px; 
     font-size: 0.95rem;
 }
 
-/* Quand on clique dans le champ */
 .contact-input:focus {
     background: rgba(15, 23, 42, 0.9) !important;
-    border-color: var(--primary) !important; /* Bordure violette */
+    border-color: var(--primary) !important; 
     box-shadow: 0 0 15px rgba(139, 92, 246, 0.2) !important;
 }
 
-/* Labels */
 .form-group label {
     display: block;
     margin-bottom: 8px;
@@ -888,7 +790,6 @@
     letter-spacing: 0.5px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .memory-card { height: 250px; }
     .memory-content p { opacity: 1; max-height: 50px; }
@@ -904,19 +805,15 @@
 }
 .back-to-top:hover { transform: translateY(-5px); color: white; }
 
-    /* =========================================
-       10. RESPONSIVE (MOBILE)
-       ========================================= */
+
     @media (max-width: 768px) {
         .header-title { font-size: 2.5rem; }
         .header-desc { font-size: 1rem; padding: 0 10px; }
-        
-        /* Timeline Mobile */
+      
         .timeline-line { left: 20px; }
         .timeline-row, .timeline-row:nth-child(odd) { flex-direction: row; justify-content: flex-start; }
         .timeline-content { width: 85%; margin-left: 50px; text-align: left !important; }
         .timeline-dot { left: 20px; }
-        
-        /* Swiper Mobile */
         .myCoverflowSwiper .swiper-slide { width: 240px; height: 360px; }
+
     }
