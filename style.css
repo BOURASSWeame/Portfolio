@@ -323,6 +323,7 @@ p {
     .header-social-bottom a:hover {
         color: var(--secondary); transform: scale(1.2); text-shadow: 0 0 15px var(--secondary);
     }
+
     /* STYLE COMPÉTENCES */
 
 .skill-card {
@@ -811,6 +812,11 @@ p {
       
         .timeline-line { left: 20px; }
         .timeline-row, .timeline-row:nth-child(odd) { flex-direction: row; justify-content: flex-start; }
+        .timeline-content { width: 85%; margin-left: 50px; text-align: left !important; }
+        .timeline-dot { left: 20px; }
+        .myCoverflowSwiper .swiper-slide { width: 240px; height: 360px; }
+
+    }
         .timeline-content { width: 85%; margin-left: 50px; text-align: left !important; }
         .timeline-dot { left: 20px; }
         .myCoverflowSwiper .swiper-slide { width: 240px; height: 360px; }
