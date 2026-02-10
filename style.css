@@ -166,38 +166,27 @@ p {
     }
 
     /* 5. HERO SECTION (HEADER) */
-.header {
-    position: relative;
-    height: 100vh; 
-    min-height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centre le contenu horizontalement */
-    overflow: hidden;
-    background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 80%);
-    margin-bottom: 60px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    text-align: center; /* Force le texte à se centrer */
-}
+    .header {
+        position: relative;
+        height: 100vh; 
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 80%);
+        margin-bottom: 60px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
 
-.header-content {
-    z-index: 2;
-    width: 100%;
-    max-width: 900px; /* Limite la largeur pour une meilleure lecture */
-    position: relative;
-    padding: 0 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Aligne les éléments (boutons, titres) sur l'axe central */
-}
+    .header-content {
+        z-index: 2;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        padding: 0 20px;
+    }
 
-.header-title {
-    font-size: clamp(2.5rem, 8vw, 4.5rem); /* Taille adaptative */
-    line-height: 1.1;
-    margin-bottom: 25px;
-    filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.3));
-    width: 100%; /* Occupe toute la largeur du parent pour le text-align */
-}
     .header-subtitle {
         color: var(--secondary);
         font-family: 'Fira Code', monospace;
@@ -208,21 +197,20 @@ p {
         display: block;
     }
 
-.header-desc {
-    max-width: 650px;
-    margin: 0 auto 45px auto; /* "auto" à gauche et à droite centre le bloc */
-    font-size: 1.15rem;
-    opacity: 0.9;
-    font-weight: 300;
-    line-height: 1.6;
-}
+    .header-title {
+        font-size: 3.5rem;
+        line-height: 1.1;
+        margin-bottom: 25px;
+        filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.3));
+    }
 
-.header-content .mt-5 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
+    .header-desc {
+        max-width: 600px;
+        margin: 0 auto 45px auto;
+        font-size: 1.15rem;
+        opacity: 0.9;
+        font-weight: 300;
+    }
 
     .bg-logo-moving {
         position: absolute;
@@ -335,7 +323,6 @@ p {
     .header-social-bottom a:hover {
         color: var(--secondary); transform: scale(1.2); text-shadow: 0 0 15px var(--secondary);
     }
-
     /* STYLE COMPÉTENCES */
 
 .skill-card {
